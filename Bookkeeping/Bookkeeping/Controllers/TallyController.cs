@@ -30,7 +30,7 @@ namespace Bookkeeping.Controllers
                 {
                     No = i,
                     Category = (i % 3 == 0) ? EnumTypes.支出 : EnumTypes.收入,
-                    Date = DateTime.Now.Date.AddDays(-(count - i)),
+                    Date = DateTime.Now.Date.AddDays(i-count),
                     Money = rnd.Next(100, 2000)
                 });
             }
