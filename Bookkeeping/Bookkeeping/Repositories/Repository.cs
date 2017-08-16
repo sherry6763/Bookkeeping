@@ -47,7 +47,5 @@ namespace Bookkeeping.Repositories
         {
             UnitOfWork.Save();
         }
-
-      
     }
 }

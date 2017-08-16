@@ -9,7 +9,6 @@ namespace Bookkeeping.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-
         public DbContext Context { get; set; }
 
         public EFUnitOfWork()
