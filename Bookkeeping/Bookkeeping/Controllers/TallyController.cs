@@ -1,4 +1,7 @@
 ﻿using Bookkeeping.Models;
+using Bookkeeping.Repositories;
+using Bookkeeping.Services;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,33 +12,28 @@ namespace Bookkeeping.Controllers
 {
     public class TallyController : Controller
     {
+        private readonly TallyService _tallyService;
+        private int pageSize = 6;
+
+        public TallyController()
+        {
+            var unitOfWork = new EFUnitOfWork();
+            _tallyService = new TallyService(unitOfWork);
+
+        }
 
         public ActionResult Index()
         {
-            return View(new TallyRecord());
+            return View();
         }
 
 
-        [ChildActionOnly]
-        public ActionResult Detail()
+        public ActionResult Detail(int page = 1)
         {
+            int currentPage = page < 1 ? 1 : page;
+            var model = _tallyService.GetAll().OrderByDescending(r => r.Date).ToPagedList(currentPage, pageSize);
 
-            var model = new List<TallyRecord>();
-            var count = 10;
-            Random rnd = new Random();
-
-            for (var i =1; i <= count; i ++)
-            {
-                model.Add(new TallyRecord()
-                {
-                    No = i,
-                    Category = (i % 3 == 0) ? EnumTypes.支出 : EnumTypes.收入,
-                    Date = DateTime.Now.Date.AddDays(i-count),
-                    Money = rnd.Next(100, 2000)
-                });
-            }
-
-            return View(model);
+            return PartialView("Detail", model);
         }
 
 

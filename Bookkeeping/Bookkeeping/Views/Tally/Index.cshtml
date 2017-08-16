@@ -4,28 +4,28 @@
     Layout = "~/Views/Shared/_TallyLayout.cshtml";
 }
 
-<div class="well">
+<div class="well" style="margin-top:50px">
     <form class="form-horizontal">
         <div class="form-group">
-            <label for="category" class="col-sm-2 control-label">類別</label>
+            <label for="category" class="col-sm-2 control-label">@Html.DisplayNameFor(m=>m.Category)</label>
             <div class="col-sm-10">         
               @Html.EnumDropDownListFor(model=>model.Category, "請選擇", new {@class = "form-control" })
             </div>
         </div>
         <div class="form-group">
-            <label for="money" class="col-sm-2 control-label">金額</label>
+            <label for="money" class="col-sm-2 control-label">@Html.DisplayNameFor(m => m.Money)</label>
             <div class="col-sm-10">
                 @Html.TextBoxFor(model=>model.Money, new { @class = "form-control", placeholder= "金額"})
             </div>
         </div>
         <div class="form-group">
-            <label for="date" class="col-sm-2 control-label">日期</label>
+            <label for="date" class="col-sm-2 control-label">@Html.DisplayNameFor(m => m.Date)</label>
             <div class="col-sm-10">
                 @Html.TextBoxFor(model => model.Date, new { @class = "form-control", placeholder = "日期" })
             </div>
         </div>
         <div class="form-group">
-            <label for="description" class="col-sm-2 control-label">備註</label>
+            <label for="description" class="col-sm-2 control-label">@Html.DisplayNameFor(m => m.Description)</label>
             <div class="col-sm-10">
                 @Html.TextAreaFor(model=>model.Description, new { @class = "form-control"})
             </div>
@@ -37,6 +37,16 @@
         </div>
     </form>
 </div>
-<div>
-    @Html.Action("Detail", "Tally")
+<div id="DetailData">
+    @Html.Action("Detail","Tally")
 </div>
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/page.js"></script>
+    <script type="text/javascript">
+        window.app.initial(elements = {
+            pageUrl: '@Url.Action("Detail", "Tally")',
+            targetDiv: 'DetailData'
+        });
+    </script>
+}
