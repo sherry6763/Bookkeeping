@@ -13,15 +13,19 @@ namespace Bookkeeping.Models
         public int No { get; set; }
 
         [Display(Name = "類別")]
+        [Required, Range(1, int.MaxValue, ErrorMessage = "請選擇類別")]
         public EnumTypes Category { get; set; }
 
         [Display(Name = "金額")]
-        public int? Money { get; set; }
+        [Required, Range(0, int.MaxValue, ErrorMessage = "只能輸入正整數")]
+        public int Money { get; set; }
 
         [Display(Name = "日期")]
-        public DateTime? Date { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
 
         [Display(Name = "備註")]
+        [Required, StringLength(100, ErrorMessage = "最多輸入{1}個字元")]
         public string Description { get; set; }
     }
 

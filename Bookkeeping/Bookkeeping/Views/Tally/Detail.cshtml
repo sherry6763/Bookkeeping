@@ -29,8 +29,8 @@
                 <tr style="background:@SetBgColor(item.Category)">
                     <td>@(i++)</td>
                     <td>@item.Category.DisplayName()</td>
-                    <td>@item.Date.Value.ToString("yyyy-MM-dd")</td>
-                    <td>@item.Money.Value.ToString("N0")</td>
+                    <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@item.Money.ToString("N0")</td>
                 </tr>
             }
         </table>

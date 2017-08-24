@@ -33,5 +33,23 @@ namespace Bookkeeping.Services
 
             return result;   
         }
+
+        public void Add(TallyRecord model)
+        {
+            var entity = new AccountBook()
+            {
+                Id = Guid.NewGuid(),
+                Categoryyy = (int)(EnumTypes)Enum.Parse(typeof(EnumTypes), model.Category.ToString()) -1,
+                Amounttt = model.Money,
+                Dateee = model.Date,
+                Remarkkk = model.Description
+            };
+            _accountBook.Insert(entity);
+        }
+
+        public void Save()
+        {
+            _accountBook.Save();
+        }
     }
 }

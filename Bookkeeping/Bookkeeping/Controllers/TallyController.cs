@@ -27,6 +27,19 @@ namespace Bookkeeping.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Index(TallyRecord model)
+        {
+            if (ModelState.IsValid)
+            {
+                _tallyService.Add(model);
+                _tallyService.Save();
+
+                return View();
+            }
+            return View(model);
+        }
+
         [ChildActionOnly]
         public ActionResult Detail(int? page)
         {
