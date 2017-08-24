@@ -1,4 +1,4 @@
-﻿@model IPagedList<Bookkeeping.Models.TallyRecord>
+﻿@model IEnumerable<Bookkeeping.Models.TallyRecord>
 @{
     Layout = null;
     var i = 1;
@@ -8,10 +8,10 @@
     <div class="col-md-12">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>@Html.DisplayNameFor(m => m.First().No)</th>
-                <th>@Html.DisplayNameFor(m => m.First().Category)</th>
-                <th>@Html.DisplayNameFor(m => m.First().Date)</th>
-                <th>@Html.DisplayNameFor(m => m.First().Money)</th>
+                <th>@Html.DisplayNameFor(m => m.No)</th>
+                <th>@Html.DisplayNameFor(m => m.Category)</th>
+                <th>@Html.DisplayNameFor(m => m.Date)</th>
+                <th>@Html.DisplayNameFor(m => m.Money)</th>
             </tr>
             @foreach (var item in Model)
             {
@@ -23,6 +23,6 @@
                 </tr>
             }
         </table>
-        @Html.PagedListPager(Model, page=>Url.Action("Index", new { page }))
+        @Html.PagedListPager(Model as IPagedList, page=>Url.Action("Index", new { page }))
     </div>
 </div>

@@ -27,7 +27,9 @@ namespace Bookkeeping.Models
 
     public enum EnumTypes
     {
-        收入 = 1,
-        支出 = 2
+        [Display(Name = "收入")]
+        Income = 1,
+        [Display(Name = "支出")]
+        Expend = 2
     }
 }

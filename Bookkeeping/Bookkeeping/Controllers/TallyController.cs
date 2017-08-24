@@ -27,12 +27,12 @@ namespace Bookkeeping.Controllers
             return View();
         }
 
-
-        public ActionResult Detail(int page = 1)
+        [ChildActionOnly]
+        public ActionResult Detail(int? page)
         {
-            int currentPage = page < 1 ? 1 : page;
-            var model = _tallyService.GetAll().OrderByDescending(r => r.Date).ToPagedList(currentPage, pageSize);
-
+            int currentPage = page ?? 1;
+            var model = _tallyService.Lookup().ToPagedList(currentPage, pageSize);
+       
             return PartialView("Detail", model);
         }
 

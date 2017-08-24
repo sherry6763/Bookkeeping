@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace Bookkeeping.Services
 {
     public class TallyService 
@@ -18,17 +19,18 @@ namespace Bookkeeping.Services
             _accountBook = new Repository<AccountBook>(unitOfWork);   
         }
 
-        public IQueryable<TallyRecord> GetAll()
+        public IQueryable<TallyRecord> Lookup()
         {
             var source = _accountBook.GetAll();
-            var result = from r in source
-                         select new TallyRecord
-                         { 
-                             Category = (r.Categoryyy + 1 == 1) ? EnumTypes.收入 : EnumTypes.支出,
-                             Money = r.Amounttt,
-                             Date = r.Dateee,
-                             Description = r.Remarkkk
-                         };
+            var result = source.OrderByDescending(r => r.Dateee).Select(
+                r => new TallyRecord
+                {
+                    Category = (r.Categoryyy + 1 == 1) ? EnumTypes.Income : EnumTypes.Expend,
+                    Money = r.Amounttt,
+                    Date = r.Dateee,
+                    Description = r.Remarkkk
+                });
+
             return result;   
         }
     }
