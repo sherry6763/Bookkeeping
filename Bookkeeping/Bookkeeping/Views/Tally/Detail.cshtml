@@ -1,8 +1,19 @@
-﻿@model IEnumerable<Bookkeeping.Models.TallyRecord>
+﻿@using Bookkeeping.Helper;
+@using Bookkeeping.Models;
+@model IEnumerable<TallyRecord>
 @{
     Layout = null;
     var i = 1;
 }
+
+@functions 
+{   
+    public string SetBgColor(EnumTypes value) 
+    {
+        return (value == EnumTypes.Expend) ? "mistyrose" : "lightcyan";
+    }
+}
+
 
 <div class="row">
     <div class="col-md-12">
@@ -14,10 +25,10 @@
                 <th>@Html.DisplayNameFor(m => m.Money)</th>
             </tr>
             @foreach (var item in Model)
-            {
-                <tr>
+    {
+                <tr style="background:@SetBgColor(item.Category)">
                     <td>@(i++)</td>
-                    <td>@item.Category</td>
+                    <td>@item.Category.DisplayName()</td>
                     <td>@item.Date.Value.ToString("yyyy-MM-dd")</td>
                     <td>@item.Money.Value.ToString("N0")</td>
                 </tr>
