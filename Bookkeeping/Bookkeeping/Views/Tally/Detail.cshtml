@@ -2,23 +2,21 @@
 @using Bookkeeping.Models;
 @model IEnumerable<TallyRecord>
 @{
-    Layout = null;
     var i = 1;
 }
 
 @functions 
 {   
-    public string SetBgColor(EnumTypes value) 
+    public string SetBgColor(EnumTypes value)
     {
-        return (value == EnumTypes.Expend) ? "mistyrose" : "lightcyan";
+        return (value == EnumTypes.Expend) ? "bg-danger" : "bg-info";
     }
 }
-
 
 <div class="row">
     <div class="col-md-12">
         <table class="table table-bordered table-hover">
-            <tr>
+            <tr class="well">
                 <th>@Html.DisplayNameFor(m => m.No)</th>
                 <th>@Html.DisplayNameFor(m => m.Category)</th>
                 <th>@Html.DisplayNameFor(m => m.Date)</th>
@@ -26,7 +24,7 @@
             </tr>
             @foreach (var item in Model)
     {
-                <tr style="background:@SetBgColor(item.Category)">
+                <tr class="@SetBgColor(item.Category)">
                     <td>@(i++)</td>
                     <td>@item.Category.DisplayName()</td>
                     <td>@item.Date.ToString("yyyy-MM-dd")</td>

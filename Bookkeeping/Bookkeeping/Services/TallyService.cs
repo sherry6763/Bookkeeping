@@ -25,7 +25,7 @@ namespace Bookkeeping.Services
             var result = source.OrderByDescending(r => r.Dateee).Select(
                 r => new TallyRecord
                 {
-                    Category = (r.Categoryyy + 1 == 1) ? EnumTypes.Income : EnumTypes.Expend,
+                    Category = (r.Categoryyy == 0) ? EnumTypes.Income : EnumTypes.Expend,
                     Money = r.Amounttt,
                     Date = r.Dateee,
                     Description = r.Remarkkk
@@ -39,7 +39,7 @@ namespace Bookkeeping.Services
             var entity = new AccountBook()
             {
                 Id = Guid.NewGuid(),
-                Categoryyy = (int)(EnumTypes)Enum.Parse(typeof(EnumTypes), model.Category.ToString()) -1,
+                Categoryyy = (int)model.Category,
                 Amounttt = model.Money,
                 Dateee = model.Date,
                 Remarkkk = model.Description

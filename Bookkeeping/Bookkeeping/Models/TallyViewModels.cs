@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bookkeeping.Filters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Bookkeeping.Models
         public int No { get; set; }
 
         [Display(Name = "類別")]
-        [Required, Range(1, int.MaxValue, ErrorMessage = "請選擇類別")]
+        [Required]
         public EnumTypes Category { get; set; }
 
         [Display(Name = "金額")]
@@ -22,6 +23,8 @@ namespace Bookkeeping.Models
 
         [Display(Name = "日期")]
         [Required]
+        [DataType(DataType.Date, ErrorMessage ="請輸入有效日期")]
+        [DateRange(ErrorMessage ="日期不可大於今天")]        
         public DateTime Date { get; set; }
 
         [Display(Name = "備註")]
@@ -32,8 +35,8 @@ namespace Bookkeeping.Models
     public enum EnumTypes
     {
         [Display(Name = "收入")]
-        Income = 1,
+        Income = 0,
         [Display(Name = "支出")]
-        Expend = 2
+        Expend = 1
     }
 }

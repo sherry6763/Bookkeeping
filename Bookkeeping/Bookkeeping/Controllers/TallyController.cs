@@ -28,6 +28,7 @@ namespace Bookkeeping.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(TallyRecord model)
         {
             if (ModelState.IsValid)
@@ -35,12 +36,12 @@ namespace Bookkeeping.Controllers
                 _tallyService.Add(model);
                 _tallyService.Save();
 
-                return View();
+                return RedirectToAction("Detail");
             }
             return View(model);
         }
 
-        [ChildActionOnly]
+
         public ActionResult Detail(int? page)
         {
             int currentPage = page ?? 1;
